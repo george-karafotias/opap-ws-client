@@ -1,0 +1,282 @@
+﻿<Window x:Class="OpapWsClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OpapWsClient"
+        Title="ΑΠΟΤΕΛΕΣΜΑΤΑ ΟΠΑΠ"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
+
+    <StackPanel VerticalAlignment="Top" Margin="15">
+        <StackPanel.Resources>
+            <Style x:Key="gameButton" TargetType="Button">
+                <Setter Property="Width" Value="150" />
+                <Setter Property="Height" Value="150" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="headerLabel" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Padding" Value="0,0,0,20" />
+            </Style>
+            <Style x:Key="formLabel" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="formTextBox" TargetType="TextBox">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Padding" Value="3" />
+                <Setter Property="Width" Value="200" />
+            </Style>
+            <Style x:Key="formButton" TargetType="Button">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Padding" Value="3" />
+            </Style>
+            <Style x:Key="menuButton" TargetType="Button">
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="Background" Value="LightYellow" />
+            </Style>
+            <Style x:Key="resultButton" TargetType="Button">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Background" Value="LightGreen" />
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="Margin" Value="0,0,10,10" />
+                <Setter Property="MinWidth" Value="50" />
+            </Style>
+        </StackPanel.Resources>
+
+        <StackPanel x:Name="menuPanel" Orientation="Horizontal" Margin="0,0,0,15" Visibility="Collapsed">
+            <Button Content="ΠΑΙΧΝΙΔΙ" Style="{StaticResource menuButton}" Click="goHomeButton_Click"/>
+            <Button Content="ΚΛΗΡΩΣΗ" Style="{StaticResource menuButton}" Click="selectDrawButton_Click" />
+        </StackPanel>
+        
+        <Grid x:Name="GameSelectionPanel">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Style="{StaticResource headerLabel}">Επιλέξτε Παιχνίδι</TextBlock>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxHeight="400">
+                <StackPanel Orientation="Vertical">
+                    <WrapPanel>
+                        <Button x:Name="kino" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="ΚΙΝΟ">ΚΙΝΟ</Button>
+                        <Button x:Name="lotto" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="ΛΟΤΤΟ">ΛΟΤΤΟ</Button>
+                        <Button x:Name="joker" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="ΤΖΟΚΕΡ">ΤΖΟΚΕΡ</Button>
+                        <Button x:Name="proto" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="ΠΡΟΤΟ">ΠΡΟΤΟ</Button>
+                        <Button x:Name="super3" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="SUPER3">SUPER3</Button>
+                        <Button x:Name="extra5" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="EXTRA5">EXTRA5</Button>
+                        <Button x:Name="propogoal" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="ΠΡΟΠΟΓΚΟΛ">ΠΡΟΠΟΓΚΟΛ</Button>
+                        <Button x:Name="penalties" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="PENALTIES">PENALTIES</Button>
+                        <Button x:Name="bowling" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="BOWLING">BOWLING</Button>
+                        <Button x:Name="powerspin" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="POWERSPIN">POWERSPIN</Button>
+                        <Button x:Name="proposun" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="ΠΡΟΠΟ ΣΑΒΒΑΤΟΥ">
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center">ΠΡΟΠΟ ΣΑΒΒΑΤΟΥ</TextBlock>
+                        </Button>
+                        <Button x:Name="proposat" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="ΠΡΟΠΟ ΚΥΡΙΑΚΗΣ">
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center">ΠΡΟΠΟ ΚΥΡΙΑΚΗΣ</TextBlock>
+                        </Button>
+                        <Button x:Name="propowed" Click="gameButton_Click" Style="{StaticResource gameButton}" Tag="ΠΡΟΠΟ ΤΕΤΑΡΤΗΣ">
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center">ΠΡΟΠΟ ΤΕΤΑΡΤΗΣ</TextBlock>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+                
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="DrawSelectionPanel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock x:Name="drawSelectionGameTextBox" Style="{StaticResource headerLabel}" Text="{Binding SelectedGame.Title}" />
+                <TextBlock Style="{StaticResource headerLabel}" Text=" - " />
+                <TextBlock Style="{StaticResource headerLabel}" Text="Επιλέξτε κλήρωση" />
+            </StackPanel>
+            <WrapPanel Grid.Row="1">
+                <Button x:Name="lastDraw" Click="lastDrawButton_Click" Style="{StaticResource gameButton}">
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Τελευταία Κλήρωση" />
+                </Button>
+                <Button x:Name="specificDraw" Click="showSpecificDrawButton_Click" Style="{StaticResource gameButton}">
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Συγκεκριμένη Κλήρωση" />
+                </Button>
+                <Button x:Name="drawsByDate" Click="showDrawByDateButton_Click" Style="{StaticResource gameButton}">
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Βάση Ημερομηνίας" />
+                </Button>
+            </WrapPanel>
+        </Grid>
+
+        <Grid x:Name="specificDrawPanel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock x:Name="specificDrawGameLabel" Style="{StaticResource headerLabel}" Text="{Binding SelectedGame.Title}" />
+                <TextBlock Style="{StaticResource headerLabel}" Text=" - " />
+                <TextBlock Style="{StaticResource headerLabel}" Text="Αποτελέσματα Κλήρωσης" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,20">
+                <TextBlock Style="{StaticResource formLabel}" Margin="0,0,10,0">Αριθμός Κλήρωσης: </TextBlock>
+                <TextBox x:Name="DrawNumber" Style="{StaticResource formTextBox}" Margin="0,0,10,0"></TextBox>
+                <Button Style="{StaticResource formButton}" Click="specificDrawButton_Click">Αποτελέσματα</Button>
+            </StackPanel>
+
+            <StackPanel x:Name="specificDrawResultsPanel" Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Ημερομηνία: " Style="{StaticResource formLabel}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource formLabel}" Text="{Binding OpapResults.draw.drawTime}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Κλήρωση: " Style="{StaticResource formLabel}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource formLabel}" Text="{Binding OpapResults.draw.drawNo}" />
+                </Grid>
+
+                <ItemsControl ItemsSource="{Binding OpapResults.draw.results}" Margin="0,25">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding}" Style="{StaticResource resultButton}"></Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+
+
+        <Grid x:Name="drawByDatePanel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock x:Name="drawByDateGameLabel" Style="{StaticResource headerLabel}" Text="{Binding SelectedGame.Title}" />
+                <TextBlock Style="{StaticResource headerLabel}" Text=" - " />
+                <TextBlock Style="{StaticResource headerLabel}" Text="Αποτελέσματα Κλήρωσης" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,20">
+                <TextBlock Style="{StaticResource formLabel}" Margin="0,0,10,0">Ημερομηνία:</TextBlock>
+                <TextBox x:Name="DrawDate" Style="{StaticResource formTextBox}" Margin="0,0,10,0"></TextBox>
+                <Button Style="{StaticResource formButton}" Click="drawByDateButton_Click">Αποτελέσματα</Button>
+            </StackPanel>
+
+            <StackPanel x:Name="drawByDateResultsPanel" Grid.Row="2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="400" Margin="0,25,0,0">
+                    <ItemsControl ItemsSource="{Binding OpapDateResults.draws.draw}" Margin="0,0,0,25">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Ημερομηνία: " Style="{StaticResource formLabel}" />
+                                        <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource formLabel}" Text="{Binding drawTime}" />
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Κλήρωση: " Style="{StaticResource formLabel}" />
+                                        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource formLabel}" Text="{Binding drawNo}" />
+                                    </Grid>
+
+                                    <ItemsControl ItemsSource="{Binding results}" Margin="0,25">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Content="{Binding}" Style="{StaticResource resultButton}"></Button>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="lastDrawPanel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock x:Name="lastDrawGameLabel" Style="{StaticResource headerLabel}" Text="{Binding SelectedGame.Title}" />
+                <TextBlock Style="{StaticResource headerLabel}" Text=" - " />
+                <TextBlock Style="{StaticResource headerLabel}" Text="Αποτελέσματα Κλήρωσης" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Ημερομηνία: " Style="{StaticResource formLabel}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource formLabel}" Text="{Binding OpapResults.draw.drawTime}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Κλήρωση: " Style="{StaticResource formLabel}" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource formLabel}" Text="{Binding OpapResults.draw.drawNo}" />
+                </Grid>
+
+                <ItemsControl ItemsSource="{Binding OpapResults.draw.results}" Margin="0,25">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding}" Style="{StaticResource resultButton}"></Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</Window>

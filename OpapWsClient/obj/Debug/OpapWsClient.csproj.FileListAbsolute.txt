@@ -1,0 +1,15 @@
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\bin\Debug\OpapWsClient.exe.config
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\bin\Debug\OpapWsClient.exe
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\bin\Debug\OpapWsClient.pdb
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\MainWindow.g.cs
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\App.g.cs
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\OpapWsClient_MarkupCompile.cache
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\OpapWsClient_MarkupCompile.lref
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\MainWindow.baml
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\OpapWsClient.g.resources
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\OpapWsClient.Properties.Resources.resources
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\OpapWsClient.csproj.GenerateResource.Cache
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\OpapWsClient.csproj.CoreCompileInputs.cache
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\OpapWsClient.exe
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\OpapWsClient.pdb
+C:\Users\keta\source\repos\OpapWsClient\OpapWsClient\obj\Debug\OpapWsClient.csprojResolveAssemblyReference.cache
